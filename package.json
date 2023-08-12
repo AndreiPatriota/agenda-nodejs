@@ -1,0 +1,21 @@
+{
+  "name": "agenda-nodejs",
+  "version": "1.0.0",
+  "description": "Um projeto onde eu tento montar uma agenda simples, capaz de guardar notas e eventos em um banco de dados local",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon main.js"
+  },
+  "author": "Andrei Patriota",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,43 @@
+<form method="put" hx-put="<%- `/api/notas/${nota.id}` %>" hx-trigger="submit">
+    <label for="titulo">
+      Título
+      <input
+        type="text"
+        id="titulo"
+        name="titulo"
+        placeholder="Título"
+        value="<%= nota.titulo %>"
+        required
+      />
+    </label>
+    <label for="descricao">
+      Descrição
+      <input
+        type="text"
+        id="descricao"
+        name="descricao"
+        placeholder="Descrição"
+        value="<%= nota.descricao %>"
+        required
+      />
+    </label>
+  
+    <!-- Select -->
+    <label for="cor">Cor</label>
+    <select name="cor" required>
+      <option value="">Selecione uma cor...</option>
+      <option value="red" <%= nota.cor === 'red' ? 'selected' : ''; %>>Vermelho</option>
+      <option value="orange" <%= nota.cor === 'orange' ? 'selected' : ''; %>>Laranja</option>
+      <option value="yellow" <%= nota.cor === 'yellow' ? 'selected' : ''; %>>Amarelo</option>
+      <option value="green" <%= nota.cor === 'green' ? 'selected' : ''; %>>Verde</option>
+      <option value="cyan" <%= nota.cor === 'cyan' ? 'selected' : ''; %>>Ciano</option>
+      <option value="blue" <%= nota.cor === 'blue' ? 'selected' : ''; %>>Azul</option>
+      <option value="purple" <%= nota.cor === 'purple' ? 'selected' : ''; %>>Roxo</option>
+    </select>
+  
+    <div class="grid">
+      <button hx-get="/notas" hx-target="main">Cancelar</button>
+      <button type="submit">Atualizar</button>
+    </div>
+  </form>
+  

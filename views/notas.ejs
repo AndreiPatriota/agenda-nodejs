@@ -1,0 +1,33 @@
+<a>
+  <i
+    class="fa fa-plus-circle fa-2x"
+    hx-get="/add-notas"
+    hx-target="main"
+    hx-swap="innerHTML"
+    hx-trigger="click"
+  ></i>
+</a>
+
+<%if (notas.length !== 0) {%> <% for (nota of notas) {%>
+<article>
+  <header>
+    <div class="grid">
+      <i class="fa fa-flag fa-2x" style="<%= `color: ${nota.cor}`%>"></i>
+      <h3><%= nota.titulo %></h3>
+      <a
+        ><i
+          class="fa fa-edit"
+          hx-get="<%= `/edita-nota/${nota.id}` %>"
+          hx-target="main"
+          hx-swap="innerHTML"
+          hx-trigger="click"
+        ></i
+      ></a>
+      <a><i class="fa fa-trash"></i></a>
+    </div>
+  </header>
+  <p><%= nota.descricao %></p>
+</article>
+<% }} else { %>
+<h2>Nenhuma nota adicionada!</h2>
+<% } %>
