@@ -12,12 +12,9 @@ rota.post('/notas', (req, res) => {
     [titulo, descricao, cor],
     (err) => {
       if (err) {
-        console.log('deu ruim!');
-        res.redirect('/notas');
-      } else {
-        console.log('adicionou');
-        res.redirect('/notas');
+        res.redirect(`/error/${err.message}`);
       }
+      res.redirect('/notas');
     }
   );
 });
@@ -34,7 +31,7 @@ rota.put('/notas/:notaId', (req, res) => {
   db.run(queryStr, [titulo, descricao, cor, notaId], (err) => {
     if (err) {
       console.log('deu ruim!');
-      res.redirect('/notas');
+      res.redirect(`/error/${err.message}`);
     } else {
       res.redirect(303, '/notas');
     }

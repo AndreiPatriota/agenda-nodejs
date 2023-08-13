@@ -18,7 +18,15 @@
         <nav>
           <div class="grid container">
             <div>
-              <a><i class="fa fa-home fa-2x"></i></a>
+              <a
+                ><i
+                  class="fa fa-home fa-2x"
+                  hx-get="/home"
+                  hx-target="main"
+                  hx-swap="innerHTML"
+                  hx-trigger="click"
+                ></i
+              ></a>
             </div>
             <div>
               <a>
