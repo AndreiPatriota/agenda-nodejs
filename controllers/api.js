@@ -38,4 +38,16 @@ rota.put('/notas/:notaId', (req, res) => {
   });
 });
 
+rota.delete('/notas/:notaId', (req, res) => {
+  const notaId = req.params.notaId;
+
+  db.run('DELETE FROM notas WHERE id = ?', notaId, function (err) {
+    if (err) {
+      console.log('deu ruim!');
+      res.redirect(`/error/${err.message}`);
+    }
+    res.redirect(303, '/notas');
+  });
+});
+
 module.exports = rota;

@@ -11,6 +11,11 @@ rota.get('/home', (req, res) => {
   res.render('home');
 });
 
+rota.get('/notas-deleta/:idNota', (req, res) => {
+  const idNota = req.params.idNota;
+  res.render('notas-deleta', { id: idNota });
+});
+
 rota.get('/notas', (req, res) => {
   db.all('SELECT * FROM notas', (err, rows) => {
     if (err) {

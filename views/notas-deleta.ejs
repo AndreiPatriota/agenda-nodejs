@@ -1,0 +1,23 @@
+<dialog open id="modal-example">
+  <article>
+    <header>
+      <h3>Deseja deletar a nota?</h3>
+    </header>
+    <button
+      hx-delete="<%- `/api/notas/${id}` %>"
+      hx-trigger="click"
+      hx-target="main"
+      data-target="modal-example"
+    >
+      Deletar
+    </button>
+    <button
+      class="secondary"
+      onclick="fechaModal(event) "
+      data-target="modal-example"
+    >
+      Cancelar
+    </button>
+  </article>
+</dialog>
+

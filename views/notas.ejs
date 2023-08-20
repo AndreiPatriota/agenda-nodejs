@@ -23,7 +23,12 @@
           hx-trigger="click"
         ></i
       ></a>
-      <a><i class="fa fa-trash"></i></a>
+      <a>
+          <i class="fa fa-trash" 
+          hx-get="<%= `/notas-deleta/${nota.id}` %>"
+          hx-target="#modal-container"
+          hx-swap="innerHTML"
+          hx-trigger="click"></i></a>
     </div>
   </header>
   <p><%= nota.descricao %></p>
@@ -31,3 +36,13 @@
 <% }} else { %>
 <h2>Nenhuma nota adicionada!</h2>
 <% } %>
+
+
+<!-- Modal -->
+<div id="modal-container">
+</div>
+
+<script src="scripts/modal.js"></script>
+
+
+
