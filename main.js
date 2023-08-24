@@ -3,19 +3,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const rotaNav = require('./controllers/nav.js');
-const rotaApi = require('./controllers/api.js');
+const rotasNav = require('./routes/nav.js');
+const rotasApi = require('./routes/api.js');
 
 const port = 8080;
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-/* Adding some Middleware */
+/* adicionando os middleware */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(rotaNav);
-app.use('/api/', rotaApi);
+app.use(rotasNav);
+app.use('/api/', rotasApi);
 
 app.listen(port, () => {
   console.log(path.join(__dirname, 'public'));

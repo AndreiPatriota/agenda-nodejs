@@ -11,25 +11,39 @@
 <%if (notas.length !== 0) {%> <% for (nota of notas) {%>
 <article>
   <header>
-    <div class="grid">
-      <i class="fa fa-flag fa-2x" style=<%- `"color: ${nota.cor}"`%>></i>
-      <h3><%= nota.titulo %></h3>
-      <a
-        ><i
-          class="fa fa-edit"
-          hx-get="<%= `/notas-edita/${nota.id}` %>"
-          hx-target="main"
-          hx-swap="innerHTML"
-          hx-trigger="click"
-        ></i
-      ></a>
-      <a>
-          <i class="fa fa-trash" 
-          hx-get="<%= `/notas-deleta/${nota.id}` %>"
-          hx-target="#modal-container"
-          hx-swap="innerHTML"
-          hx-trigger="click"></i></a>
-    </div>
+      <nav>
+        <ul>
+          <li>
+            <i class="fa fa-flag fa-2x" style=<%- `"color: ${nota.cor}"`%>></i>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <h3><%= nota.titulo %></h3>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a
+              ><i
+                class="fa fa-edit"
+                hx-get="<%= `/notas-edita/${nota.id}` %>"
+                hx-target="main"
+                hx-swap="innerHTML"
+                hx-trigger="click"
+              ></i
+            ></a>
+          </li>
+          <li>
+            <a>
+                <i class="fa fa-trash"
+                hx-get="<%= `/notas-deleta/${nota.id}` %>"
+                hx-target="#modal-container"
+                hx-swap="innerHTML"
+                hx-trigger="click"></i></a>
+          </li>
+        </ul>
+      </nav>
   </header>
   <p><%= nota.descricao %></p>
 </article>

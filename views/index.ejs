@@ -16,8 +16,8 @@
     <article>
       <header>
         <nav>
-          <div class="grid container">
-            <div>
+          <ul>
+            <li>
               <a
                 ><i
                   class="fa fa-home fa-2x"
@@ -27,8 +27,10 @@
                   hx-trigger="click"
                 ></i
               ></a>
-            </div>
-            <div>
+            </li>
+          </ul>
+          <ul>
+            <li>
               <a>
                 <i
                   class="fa fa-sticky-note fa-2x"
@@ -38,8 +40,10 @@
                   hx-trigger="click"
                 ></i>
               </a>
-            </div>
-            <div>
+            </li>
+          </ul>
+          <ul>
+            <li>
               <a>
                 <i
                   class="fa fa-clock-o fa-2x"
@@ -49,9 +53,16 @@
                   hx-trigger="click"
                 ></i>
               </a>
-            </div>
-          </div>
+            </li>
+          </ul>
         </nav>
+        <!-- <nav>
+          <div class="grid container">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </nav> -->
       </header>
 
       <main><%- include('home') %></main>
