@@ -2,49 +2,40 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const { Sequelize, DataTypes } = require('sequelize');
 
-const db = new sqlite3.Database(path.join('.', 'models', 'base.db'));
-db.serialize(() => {
-  db.run(`
-      CREATE TABLE IF NOT EXISTS notas (
-        id INTEGER PRIMARY KEY,
-        titulo TEXT,
-        descricao TEXT,
-        cor TEXT
-      )
-    `);
+/* instancia o banco */
+const db = new Sequelize({
+  dialect: 'sqlite',
+  storage: './base',
 });
 
-const myDb = new Sequelize({
-  dialect: 'sqlite',
-  storage: './base.db',
-});
-const Nota = myDb.define('_notas', {
+/* cria os modelos aqui */
+const Nota = db.define('notas', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
     allowNull: false,
     unique: true,
   },
   titulo: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: false,
   },
   descricao: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: false,
   },
   cor: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: false,
   },
 });
 
-// sincronização com o banco de dados
-myDb
-  .sync()
+/* sincronização com o banco de dados */
+db.sync()
   .then(() => {
     console.log('Banco de dados e tabelas criadas!');
   })
@@ -52,4 +43,5 @@ myDb
     console.error('Erro ao sincronizar o banco de dados', error);
   });
 
-module.exports = db;
+/* exporta os modelos */
+exports.Nota = Nota;

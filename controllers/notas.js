@@ -1,27 +1,27 @@
-const db = require('../models/db');
+const { Nota } = require('../models/db.js');
 
-exports.buscaNotas = (req, res) => {
-  db.all('SELECT * FROM notas', (err, rows) => {
-    if (err) {
-      res.render('error', { error: err.message });
-    }
-    res.render('notas', { notas: rows });
-  });
+exports.buscaNotas = async (req, res) => {
+  try {
+    const notas = await Nota.findAll();
+    res.render('notas', { notas: notas });
+  } catch (error) {
+    res.render('error', { error: error.message });
+  }
 };
 
 exports.buscaFormularioCadastroNota = (req, res) => {
   res.render('notas-add');
 };
 
-exports.buscaFormularioAtualizaNota = (req, res) => {
+exports.buscaFormularioAtualizaNota = async (req, res) => {
   const notaId = req.params.notaId;
-  const queryStr = `SELECT * FROM notas WHERE id = ?`;
-  db.get(queryStr, [notaId], (err, row) => {
-    if (err) {
-      res.render('error', { error: err.message });
-    }
-    res.render('notas-edita', { nota: row });
-  });
+
+  try {
+    const nota = await Nota.findOne({ where: { id: notaId } });
+    res.render('notas-edita', { nota: nota });
+  } catch (error) {
+    res.render('error', { error: error.message });
+  }
 };
 
 exports.buscaModalDeletaNota = (req, res) => {
@@ -29,48 +29,41 @@ exports.buscaModalDeletaNota = (req, res) => {
   res.render('notas-deleta', { id: idNota });
 };
 
-exports.salvaNota = (req, res) => {
+exports.criaNota = async (req, res) => {
   const { titulo, descricao, cor } = req.body;
 
-  db.run(
-    'INSERT INTO notas (titulo, descricao, cor) VALUES (?, ?, ?)',
-    [titulo, descricao, cor],
-    (err) => {
-      if (err) {
-        res.redirect(`/error/${err.message}`);
-      }
-      res.redirect('/notas');
-    }
-  );
+  try {
+    const novaNota = await Nota.create({ titulo, descricao, cor });
+    res.redirect('/notas');
+  } catch (error) {
+    res.redirect(`/error/${error.message}`);
+  }
 };
 
-exports.atualizaNota = (req, res) => {
+exports.atualizaNota = async (req, res) => {
   const { titulo, descricao, cor } = req.body;
   const notaId = req.params.notaId;
-  const queryStr = `UPDATE notas SET 
-    titulo = ?, 
-    descricao = ?,
-    cor = ?
-    WHERE id = ?`;
 
-  db.run(queryStr, [titulo, descricao, cor, notaId], (err) => {
-    if (err) {
-      console.log('deu ruim!');
-      res.redirect(`/error/${err.message}`);
-    } else {
-      res.redirect(303, '/notas');
-    }
-  });
-};
-
-exports.deletaNota = (req, res) => {
-  const notaId = req.params.notaId;
-
-  db.run('DELETE FROM notas WHERE id = ?', notaId, function (err) {
-    if (err) {
-      console.log('deu ruim!');
-      res.redirect(`/error/${err.message}`);
-    }
+  try {
+    const [regAtualizadosCount, regAtualizados] = await Nota.update(
+      { titulo, descricao, cor },
+      { where: { id: notaId }, returning: true }
+    );
     res.redirect(303, '/notas');
-  });
+  } catch (error) {
+    console.log('deu ruim!');
+    res.redirect(`/error/${error.message}`);
+  }
+};
+
+exports.deletaNota = async (req, res) => {
+  const notaId = req.params.notaId;
+
+  try {
+    await Nota.destroy({ where: { id: notaId } });
+    res.redirect(303, '/notas');
+  } catch (error) {
+    console.log('deu ruim!');
+    res.redirect(`/error/${error.message}`);
+  }
 };
