@@ -1,0 +1,57 @@
+<form
+  method="put"
+  hx-put="<%- `/api/eventos/${evento.id}` %>"
+  hx-trigger="submit"
+>
+  <label for="titulo">
+    Título
+    <input
+      type="text"
+      id="titulo"
+      name="titulo"
+      placeholder="Título"
+      value= <%= evento.titulo %>
+    required />
+  </label>
+  <label for="descricao">
+    Descrição
+    <input
+      type="text"
+      id="descricao"
+      name="descricao"
+      placeholder="Descrição"
+      value=<%= evento.descricao %>
+    required />
+  </label>
+  <div class="grid">
+    <div>
+      <label for="data">
+        Data
+        <input
+          type="date"
+          id="data"
+          name="data"
+          placeholder="Data"
+          value=<%= evento.data %>
+        required />
+      </label>
+    </div>
+    <div>
+      <label for="hora">
+        Data
+        <input
+          type="time"
+          id="hora"
+          name="hora"
+          placeholder="Hora"
+          value=<%= evento.hora %>
+        required />
+      </label>
+    </div>
+  </div>
+
+  <div class="grid">
+    <button hx-get="/eventos" hx-target="main">Cancelar</button>
+    <button type="submit">Atualizar</button>
+  </div>
+</form>

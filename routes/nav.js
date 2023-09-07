@@ -19,6 +19,11 @@ rota.get('/notas-edita/:notaId', notasController.buscaFormularioAtualizaNota);
 rota.get('/notas-deleta/:idNota', notasController.buscaModalDeletaNota);
 
 rota.get('/eventos', eventosController.buscaEventos);
+rota.get('/eventos-add', eventosController.buscaFormularioCadastroEvento);
+rota.get(
+  '/eventos-edita/:eventoId',
+  eventosController.buscaFormularioAtualizaEvento
+);
 
 rota.get('/error/:error', (req, res) => {
   const errorMens = req.params.error;

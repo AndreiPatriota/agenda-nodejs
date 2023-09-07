@@ -1,1 +1,61 @@
-<h1>eventos</h1>
+<a>
+  <i
+    class="fa fa-plus-circle fa-2x"
+    hx-get="/eventos-add"
+    hx-target="main"
+    hx-swap="innerHTML"
+    hx-trigger="click"
+  ></i>
+</a>
+
+<%if (eventos.length !== 0) {%> <% for (evento of eventos) {%>
+<article>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <h3><%= evento.titulo %></h3>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <a
+            ><i
+              class="fa fa-edit"
+              hx-get="<%= `/eventos-edita/${evento.id}` %>"
+              hx-target="main"
+              hx-swap="innerHTML"
+              hx-trigger="click"
+            ></i
+          ></a>
+        </li>
+        <li>
+          <a>
+            <i
+              class="fa fa-trash"
+              hx-get="<%= `/eventos-deleta/${evento.id}` %>"
+              hx-target="#modal-container"
+              hx-swap="innerHTML"
+              hx-trigger="click"
+            ></i
+          ></a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <p><%= evento.descricao %></p>
+  <footer>
+    <%let d = evento.data.toString().split(' ')%>
+    <p>
+      <%=`${d[0]} ${d[2]}/${d[1]}/${d[3]} às ${evento.hora}` %>
+    </p>
+  </footer>
+</article>
+<% }} else { %>
+<h2>Nenhum evento adicionado!</h2>
+<% } %>
+
+<!-- Modal -->
+<div id="modal-container"></div>
+
+<script src="scripts/modal.js"></script>

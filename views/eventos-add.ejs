@@ -1,0 +1,43 @@
+<form hx-post="/api/eventos" hx-trigger="submit" hx-target="main">
+  <label for="titulo">
+    Título
+    <input
+      type="text"
+      id="titulo"
+      name="titulo"
+      placeholder="Título"
+      required
+    />
+  </label>
+  <label for="descricao">
+    Descrição
+    <input
+      type="text"
+      id="descricao"
+      name="descricao"
+      placeholder="Descrição"
+      required
+    />
+  </label>
+  <div class="grid">
+    <div>
+      <label for="data">
+        Data
+        <input type="date" id="data" name="data" placeholder="Data" required />
+      </label>
+    </div>
+    <div>
+      <label for="hora">
+        Data
+        <input type="time" id="hora" name="hora" placeholder="Hora" required />
+      </label>
+    </div>
+  </div>
+
+  <div class="grid">
+    <button hx-get="/eventos" hx-target="main" hx-trigger="click">
+      Cancelar
+    </button>
+    <button type="submit">Criar</button>
+  </div>
+</form>
