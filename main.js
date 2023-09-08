@@ -2,7 +2,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-
 const rotasNav = require('./routes/nav.js');
 const rotasApi = require('./routes/api.js');
 
@@ -19,5 +18,5 @@ app.use('/api/', rotasApi);
 
 app.listen(port, () => {
   console.log(path.join(__dirname, 'public'));
-  console.log(`Servidor rodando na porta ${port}`);
+  console.log(`Servidor escutando na porta ${port}`);
 });

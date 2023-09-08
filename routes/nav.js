@@ -1,7 +1,7 @@
 const express = require('express');
-const db = require('../models/db.js');
 const notasController = require('../controllers/notas.js');
 const eventosController = require('../controllers/eventos.js');
+const contatosController = require('../controllers/contatos.js');
 
 rota = express.Router();
 
@@ -24,6 +24,10 @@ rota.get(
   '/eventos-edita/:eventoId',
   eventosController.buscaFormularioAtualizaEvento
 );
+rota.get('/eventos-deleta/:eventoId', eventosController.buscaModalDeletaEvento);
+
+rota.get('/contatos', contatosController.buscaContatos);
+rota.get('/contatos-add', contatosController.buscaFormularioCadastroContato);
 
 rota.get('/error/:error', (req, res) => {
   const errorMens = req.params.error;

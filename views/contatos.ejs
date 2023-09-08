@@ -1,0 +1,88 @@
+<a>
+  <i
+    class="fa fa-plus-circle fa-2x"
+    hx-get="/contatos-add"
+    hx-target="#modal-container"
+    hx-swap="innerHTML"
+    hx-trigger="click"
+  ></i>
+</a>
+
+<%if (contatos.length !== 0) {%> <% for (contato of contatos) {%>
+<article class="card">
+  <section class="card__header">
+    <nav>
+      <ul>
+        <li>
+          <div class="card__container-foto">
+            <img
+              class="card__foto"
+              src="<%- `/imagens/${contato.fotoUrl}` %>"
+              alt="<%= contato.primeiroNome %>"
+            />
+          </div>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <h2><%= contato.primeiroNome %></h2>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <a
+            ><i
+              class="fa fa-edit"
+              hx-get="<%= `/contatos-edita/${contato.id}` %>"
+              hx-target="main"
+              hx-swap="innerHTML"
+              hx-trigger="click"
+            ></i
+          ></a>
+        </li>
+        <li>
+          <a>
+            <i
+              class="fa fa-trash"
+              hx-get="<%= `/contatos-deleta/${contato.id}` %>"
+              hx-target="#modal-container"
+              hx-swap="innerHTML"
+              hx-trigger="click"
+            ></i
+          ></a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <section class="card__body">
+    <hgroup>
+      <h4><%- `${contato.primeiroNome} ${contato.ultimoNome}` %></h4>
+      <h5><%= contato.empresa %></h5>
+    </hgroup>
+    <h4>Contato:</h4>
+    <ul>
+      <% if(contato.telefone) { %>
+      <li><%= contato.telefone %></li>
+      <%}%> <% if(contato.email) { %>
+      <li><%= contato.email %></li>
+      <%}%> <% if(contato.arroba) { %>
+      <li>
+        <a
+          href="<%- `https:\\www.instagram.com/${contato.arroba}` %>"
+          target="_blank"
+          rel="external"
+          ><%- `@${contato.arroba}` %></a
+        >
+      </li>
+      <%}%>
+    </ul>
+  </section>
+</article>
+<% }} else { %>
+<h2>Nenhuma contato adicionado!</h2>
+<% } %>
+
+<!-- Modal -->
+<div id="modal-container"></div>
+
+<script src="scripts/modal.js"></script>

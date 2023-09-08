@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.card__header {
+  height: 100px;
+}
+
+.card__container-foto {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.card__foto {
+  width: 100%;
+  height: auto;
+}

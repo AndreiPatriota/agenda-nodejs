@@ -24,6 +24,11 @@ exports.buscaFormularioAtualizaEvento = async (req, res) => {
   }
 };
 
+exports.buscaModalDeletaEvento = (req, res) => {
+  const idEvento = req.params.eventoId;
+  res.render('eventos-deleta', { id: idEvento });
+};
+
 exports.criaEvento = async (req, res) => {
   const { titulo, descricao, data, hora } = req.body;
 
