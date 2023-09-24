@@ -30,5 +30,6 @@ rota.post(
   upload.single('foto-perfil'),
   contatosController.criaContato
 );
+rota.put('/contatos/:contatoId', contatosController.atualizaContato);
 
 module.exports = rota;

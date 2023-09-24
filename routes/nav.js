@@ -28,6 +28,10 @@ rota.get('/eventos-deleta/:eventoId', eventosController.buscaModalDeletaEvento);
 
 rota.get('/contatos', contatosController.buscaContatos);
 rota.get('/contatos-add', contatosController.buscaFormularioCadastroContato);
+rota.get(
+  '/contatos-edita/:contatoId',
+  contatosController.buscaFormularioEditaContato
+);
 
 rota.get('/error/:error', (req, res) => {
   const errorMens = req.params.error;

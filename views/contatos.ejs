@@ -34,7 +34,7 @@
             ><i
               class="fa fa-edit"
               hx-get="<%= `/contatos-edita/${contato.id}` %>"
-              hx-target="main"
+              hx-target="#modal-container"
               hx-swap="innerHTML"
               hx-trigger="click"
             ></i
@@ -84,5 +84,3 @@
 
 <!-- Modal -->
 <div id="modal-container"></div>
-
-<script src="scripts/modal.js"></script>

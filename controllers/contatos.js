@@ -11,7 +11,18 @@ exports.buscaContatos = async (req, res, next) => {
 };
 
 exports.buscaFormularioCadastroContato = (req, res, next) => {
-  res.render('contatos-add');
+  res.render('contatos-add-edita', { edita: false, contato: null });
+};
+
+exports.buscaFormularioEditaContato = async (req, res, next) => {
+  const contatoId = req.params.contatoId;
+
+  try {
+    const contato = await Contato.findOne({ where: { id: contatoId } });
+    res.render('contatos-add-edita', { edita: true, contato: contato });
+  } catch (error) {
+    res.redirect(`/error/${error.message}`);
+  }
 };
 
 exports.criaContato = async (req, res, next) => {
@@ -37,6 +48,30 @@ exports.criaContato = async (req, res, next) => {
     });
     res.redirect('/contatos');
   } catch (error) {
+    res.redirect(`/error/${error.message}`);
+  }
+};
+
+exports.atualizaContato = async (req, res, next) => {
+  const contatoId = req.params.contatoId;
+  const { primeiroNome, ultimoNome, telefone, email, arroba, empresa } =
+    req.body;
+
+  try {
+    const [regAtualizadosCount, regAtualizados] = await Contato.update(
+      {
+        primeiroNome: primeiroNome,
+        ultimoNome: ultimoNome,
+        telefone: telefone,
+        email: email,
+        arroba: arroba,
+        empresa: empresa,
+      },
+      { where: { id: contatoId }, returning: true }
+    );
+    res.redirect(303, '/contatos');
+  } catch (error) {
+    console.log('deu ruim!');
     res.redirect(`/error/${error.message}`);
   }
 };
