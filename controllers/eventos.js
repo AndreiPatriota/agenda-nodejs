@@ -1,27 +1,31 @@
 const { Evento } = require('../models/db.js');
 
-exports.buscaEventos = async (req, res) => {
-  try {
-    const eventos = await Evento.findAll();
-    res.render('eventos', { eventos: eventos });
-  } catch (error) {
-    res.render('error', { error: error });
-  }
+exports.buscaEventos = (req, res) => {
+  Evento.findAll()
+    .then((listadeEventos) => {
+      res.render('eventos', { eventos: listadeEventos });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render('error', { error: err });
+    });
 };
 
 exports.buscaFormularioCadastroEvento = (req, res) => {
   res.render('eventos-add');
 };
 
-exports.buscaFormularioAtualizaEvento = async (req, res) => {
+exports.buscaFormularioAtualizaEvento = (req, res) => {
   const eventoId = req.params.eventoId;
 
-  try {
-    const evento = await Evento.findOne({ where: { id: eventoId } });
-    res.render('eventos-edita', { evento: evento });
-  } catch (error) {
-    res.render('error', { error: error.message });
-  }
+  Evento.findByPk(eventoId)
+    .then((evento) => {
+      res.render('eventos-edita', { evento: evento });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.render('error', { error: err.message });
+    });
 };
 
 exports.buscaModalDeletaEvento = (req, res) => {
@@ -29,41 +33,55 @@ exports.buscaModalDeletaEvento = (req, res) => {
   res.render('eventos-deleta', { id: idEvento });
 };
 
-exports.criaEvento = async (req, res) => {
+exports.criaEvento = (req, res) => {
   const { titulo, descricao, data, hora } = req.body;
 
-  try {
-    const novaNota = await Evento.create({ titulo, descricao, data, hora });
-    res.redirect('/eventos');
-  } catch (error) {
-    res.redirect(`/error/${error.message}`);
-  }
+  Evento.create({ titulo, descricao, data, hora })
+    .then((incoming) => {
+      res.redirect('/eventos');
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.redirect(`/error/${err.message}`);
+    });
 };
 
-exports.atualizaEvento = async (req, res) => {
+exports.atualizaEvento = (req, res) => {
   const { titulo, descricao, data, hora } = req.body;
   const eventoId = req.params.eventoId;
 
-  try {
-    const [regAtualizadosCount, regAtualizados] = await Evento.update(
-      { titulo, descricao, data, hora },
-      { where: { id: eventoId }, returning: true }
-    );
-    res.redirect(303, '/eventos');
-  } catch (error) {
-    console.log('deu ruim!');
-    res.redirect(`/error/${error.message}`);
-  }
+  Evento.findByPk(eventoId)
+    .then((evento) => {
+      evento.titulo = titulo;
+      evento.descricao = descricao;
+      evento.data = data;
+      evento.hora = hora;
+
+      return evento.save();
+    })
+    .then((incoming) => {
+      console.log('Evento atualizado com sucesso!');
+      res.redirect(303, '/eventos');
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.redirect(`/error/${error.message}`);
+    });
 };
 
-exports.deletaEvento = async (req, res) => {
+exports.deletaEvento = (req, res) => {
   const eventoId = req.params.eventoId;
 
-  try {
-    await Evento.destroy({ where: { id: eventoId } });
-    res.redirect(303, '/eventos');
-  } catch (error) {
-    console.log('deu ruim!');
-    res.redirect(`/error/${error.message}`);
-  }
+  Evento.findByPk(eventoId)
+    .then((evento) => {
+      return evento.destroy();
+    })
+    .then((incoming) => {
+      console.log('Evento deletado com sucesso!');
+      res.redirect(303, '/eventos');
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.redirect(`/error/${err.message}`);
+    });
 };

@@ -107,16 +107,8 @@ const Contato = db.define('contatos', {
   },
 });
 
-/* sincronização com o banco de dados */
-db.sync()
-  .then(() => {
-    console.log('Banco de dados e tabelas criadas!');
-  })
-  .catch((error) => {
-    console.error('Erro ao sincronizar o banco de dados', error);
-  });
-
 /* exporta os modelos */
 exports.Nota = Nota;
 exports.Evento = Evento;
 exports.Contato = Contato;
+exports.db = db;
