@@ -1,0 +1,4 @@
+<% for(tarefa of listadeTarefas) {%>
+<li><%= tarefa.descricao %></li>
+<input type="checkbox" name="tarefa_<%= tarefa.id %>" />
+<%}%>

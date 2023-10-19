@@ -3,6 +3,7 @@ const multer = require('multer');
 const notaController = require('../controllers/notas.js');
 const eventoController = require('../controllers/eventos.js');
 const contatosController = require('../controllers/contatos.js');
+const tarefasController = require('../controllers/tarefas.js');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -31,5 +32,8 @@ rota.post(
   contatosController.criaContato
 );
 rota.put('/contatos/:contatoId', contatosController.atualizaContato);
+
+rota.get('/tarefas', tarefasController.buscaListadeTarefas);
+rota.post('/tarefas', tarefasController.criaTarefa);
 
 module.exports = rota;

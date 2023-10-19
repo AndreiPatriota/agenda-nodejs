@@ -2,6 +2,7 @@ const express = require('express');
 const notasController = require('../controllers/notas.js');
 const eventosController = require('../controllers/eventos.js');
 const contatosController = require('../controllers/contatos.js');
+const tarefasController = require('../controllers/tarefas.js');
 
 rota = express.Router();
 
@@ -32,6 +33,8 @@ rota.get(
   '/contatos-edita/:contatoId',
   contatosController.buscaFormularioEditaContato
 );
+
+rota.get('/tarefas', tarefasController.buscaTarefas);
 
 rota.get('/error/:error', (req, res) => {
   const errorMens = req.params.error;

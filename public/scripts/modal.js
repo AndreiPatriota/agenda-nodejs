@@ -1,5 +1,8 @@
 function fechaModal(event) {
   const modal = document.getElementById('modal-example');
-
-  modal.close();
+  modal.showModal();
+}
+function fechaModal(event) {
+  const modal = document.getElementById('modal-example');
+  modal.showModal();
 }

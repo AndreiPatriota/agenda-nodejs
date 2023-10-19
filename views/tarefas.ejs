@@ -1,0 +1,50 @@
+<a>
+  <i class="fa fa-plus-circle fa-2x" hx-on:click="abreModal()"></i>
+</a>
+
+<% if(listadeTarefas.length > 0) {%>
+<ul id="lista-tarefas">
+  <% for(tarefa of listadeTarefas) {%>
+  <li><%= tarefa.descricao %></li>
+  <input type="checkbox" name="tarefa_<%= tarefa.id %>" />
+  <%}%>
+</ul>
+<%} else {%>
+<h2>Nenhuma tarefa adicionada</h2>
+<%}%>
+
+<dialog id="modal-cria">
+  <article>
+    <form
+      hx-post="/api/tarefas"
+      hx-trigger="submit"
+      hx-on::after-request="fechaModal()"
+      hx-target="#lista-tarefas"
+      hx-swap="innerHTML"
+    >
+      <label for="idescricao"> Descrição </label>
+      <input type="text" name="descricao" id="idescricao" required />
+
+      <label for="idata">Data Limite</label>
+      <input type="date" name="dataLimite" id="idata" />
+
+      <footer>
+        <div class="grid">
+          <button hx-on:click="fechaModal()">Cancelar</button>
+          <button type="submit">Criar</button>
+        </div>
+      </footer>
+    </form>
+  </article>
+</dialog>
+
+<script>
+  const abreModal = () => {
+    const modal = document.getElementById('modal-cria');
+    modal.showModal();
+  };
+  const fechaModal = () => {
+    const modal = document.getElementById('modal-cria');
+    modal.close();
+  };
+</script>

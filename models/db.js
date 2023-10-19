@@ -107,8 +107,34 @@ const Contato = db.define('contatos', {
   },
 });
 
+const Tarefa = db.define('tarefas', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false,
+    unique: true,
+  },
+  descricao: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: false,
+  },
+  dataLimite: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    unique: false,
+  },
+  concluido: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    unique: false,
+  },
+});
+
 /* exporta os modelos */
 exports.Nota = Nota;
 exports.Evento = Evento;
 exports.Contato = Contato;
+exports.Tarefa = Tarefa;
 exports.db = db;
