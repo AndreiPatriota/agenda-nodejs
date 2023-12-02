@@ -1,26 +1,29 @@
 <a>
-  <i class="fa fa-plus-circle fa-2x" hx-on:click="abreModal()"></i>
+  <i
+    class="fa fa-plus-circle fa-2x"
+    _="on click call #modal-cria-tarefa.show()"
+  ></i>
 </a>
 
 <% if(listadeTarefas.length > 0) {%>
 <ul id="lista-tarefas">
-  <% for(tarefa of listadeTarefas) {%>
-  <li><%= tarefa.descricao %></li>
-  <input type="checkbox" name="tarefa_<%= tarefa.id %>" />
-  <%}%>
+  <%- include('tarefas-lista') %>
 </ul>
 <%} else {%>
 <h2>Nenhuma tarefa adicionada</h2>
 <%}%>
 
-<dialog id="modal-cria">
+<dialog id="modal-cria-tarefa">
   <article>
+    <h3>Crair uma Nova Tarefa</h3>
     <form
+      id="form-cria-tarefa"
       hx-post="/api/tarefas"
       hx-trigger="submit"
-      hx-on::after-request="fechaModal()"
       hx-target="#lista-tarefas"
       hx-swap="innerHTML"
+      _="on submit call #modal-cria-tarefa.close()
+         on htmx:afterRequest call #form-cria-tarefa.reset()"
     >
       <label for="idescricao"> Descrição </label>
       <input type="text" name="descricao" id="idescricao" required />
@@ -30,21 +33,14 @@
 
       <footer>
         <div class="grid">
-          <button hx-on:click="fechaModal()">Cancelar</button>
+          <button
+            _="on click call #modal-cria-tarefa.close() then call #form-cria-tarefa.reset()"
+          >
+            Cancelar
+          </button>
           <button type="submit">Criar</button>
         </div>
       </footer>
     </form>
   </article>
 </dialog>
-
-<script>
-  const abreModal = () => {
-    const modal = document.getElementById('modal-cria');
-    modal.showModal();
-  };
-  const fechaModal = () => {
-    const modal = document.getElementById('modal-cria');
-    modal.close();
-  };
-</script>

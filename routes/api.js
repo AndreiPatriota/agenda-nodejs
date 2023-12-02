@@ -35,5 +35,6 @@ rota.put('/contatos/:contatoId', contatosController.atualizaContato);
 
 rota.get('/tarefas', tarefasController.buscaListadeTarefas);
 rota.post('/tarefas', tarefasController.criaTarefa);
+rota.delete('/tarefas/:idTarefa', tarefasController.deletaTarefa);
 
 module.exports = rota;

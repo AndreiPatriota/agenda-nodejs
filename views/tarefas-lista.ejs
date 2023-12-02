@@ -1,4 +1,26 @@
 <% for(tarefa of listadeTarefas) {%>
-<li><%= tarefa.descricao %></li>
-<input type="checkbox" name="tarefa_<%= tarefa.id %>" />
+<article>
+  <div class="grid">
+    <li><%= tarefa.descricao %></li>
+    <input type="checkbox" name="tarefa_<%= tarefa.id %>" />
+    <a>
+      <i
+        class="fa fa-edit"
+        hx-put="<%= `/api/tarefas/${tarefa.id}` %>"
+        hx-target="#modal-container"
+        hx-swap="innerHTML"
+        hx-trigger="click"
+      ></i
+    ></a>
+    <a>
+      <i
+        class="fa fa-trash"
+        hx-delete="<%= `/api/tarefas/${tarefa.id}` %>"
+        hx-confirm="Você está certo(a) disso?"
+        hx-target="#lista-tarefas"
+        hx-swap="innerHTML"
+      ></i>
+    </a>
+  </div>
+</article>
 <%}%>

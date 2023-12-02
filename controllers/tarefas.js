@@ -33,3 +33,19 @@ exports.criaTarefa = (req, res) => {
       console.log(err);
     });
 };
+
+exports.deletaTarefa = (req, res, next) => {
+  const idTarefa = req.params.idTarefa;
+
+  Tarefa.findByPk(idTarefa)
+    .then((tarefa) => {
+      return tarefa.destroy();
+    })
+    .then((data) => {
+      console.log('Tarefa deletada com sucesso!');
+      res.redirect(303, '/api/tarefas');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
