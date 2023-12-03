@@ -1,15 +1,34 @@
 <% for(tarefa of listadeTarefas) {%>
 <article>
   <div class="grid">
-    <li><%= tarefa.descricao %></li>
-    <input type="checkbox" name="tarefa_<%= tarefa.id %>" />
+    <li>
+      <hgroup>
+        <h4><%= tarefa.descricao %></h4>
+        <h5>
+          Prazo: <%= tarefa.dataLimite.toString().split(' ')[2] %>/<%=
+          tarefa.dataLimite.toString().split(' ')[1] %>/<%=
+          tarefa.dataLimite.toString().split(' ')[3] %>
+        </h5>
+      </hgroup>
+    </li>
+    <input
+      type="checkbox"
+      name="completa"
+      id="tarefa_<%= tarefa.id %>"
+      hx-patch="/api/tarefas/<%= tarefa.id %>"
+      hx-trigger="change"
+      hx-target="#ul-tarefas"
+      <% if(tarefa.concluido) {%>
+        checked
+      <%}%> />
     <a>
       <i
         class="fa fa-edit"
         hx-target="#ul-tarefas"
         hx-swap="innerHTML"
-        _="on click call #dialog-cria-tarefa.show() then set #input-id.value to <%- tarefa.id %> then set #input-descricao.value to 
-        '<%= tarefa.descricao %>' then set #input-data.value to '<%= tarefa.dataLimite %>'"
+        _="on click call #dialog-cria-tarefa.show() then set #form-tarefa__input-id.value to <%- tarefa.id %> 
+        then set #form-tarefa__input-descricao.value to 
+        '<%= tarefa.descricao%>' then set #form-tarefa__input-data.value to '<%= tarefa.dataLimite.getFullYear() %>-<%= tarefa.dataLimite.getMonth() + 1 %>-<%= tarefa.dataLimite.getDate() + 1%>'"
       ></i
     ></a>
     <a>

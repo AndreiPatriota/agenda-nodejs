@@ -23,14 +23,18 @@
       _="on submit call #dialog-cria-tarefa.close()
          on htmx:afterRequest call #form-cria-tarefa.reset()"
     >
-    
-      <input type="text" name="id" id="input-id"/>
+      <input type="text" name="id" id="form-tarefa__input-id" class="esconde" />
 
-      <label for="input-descricao"> Descrição </label>
-      <input type="text" name="descricao" id="input-descricao" required />
+      <label for="form-tarefa__input-descricao"> Descrição </label>
+      <input
+        type="text"
+        name="descricao"
+        id="form-tarefa__input-descricao"
+        required
+      />
 
-      <label for="input-data">Data Limite</label>
-      <input type="date" name="dataLimite" id="input-data" />
+      <label for="form-tarefa__input-data">Data Limite</label>
+      <input type="date" name="dataLimite" id="form-tarefa__input-data" />
 
       <footer>
         <div class="grid">

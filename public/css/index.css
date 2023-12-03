@@ -16,6 +16,6 @@
   height: auto;
 }
 
-input[type='text']#input-id {
+.esconde {
   display: none;
 }

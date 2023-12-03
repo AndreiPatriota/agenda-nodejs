@@ -66,3 +66,19 @@ exports.deletaTarefa = (req, res, next) => {
       console.log(err);
     });
 };
+
+exports.completaTarefa = (req, res, next) => {
+  const idTarefa = req.params.idTarefa;
+
+  Tarefa.findByPk(idTarefa)
+    .then((tarefa) => {
+      tarefa.concluido = !tarefa.concluido;
+      return tarefa.save();
+    })
+    .then((data) => {
+      res.redirect(303, '/api/tarefas');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
