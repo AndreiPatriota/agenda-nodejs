@@ -1,40 +1,41 @@
 <a>
   <i
     class="fa fa-plus-circle fa-2x"
-    _="on click call #modal-cria-tarefa.show()"
+    _="on click call #dialog-cria-tarefa.show()"
   ></i>
 </a>
 
-<% if(listadeTarefas.length > 0) {%>
-<ul id="lista-tarefas">
-  <%- include('tarefas-lista') %>
+<ul id="ul-tarefas">
+  <%- include('tarefas-lista') %> <% if(listadeTarefas.length <= 0) {%>
+  <h2>Nenhuma tarefa adicionada</h2>
+  <%}%>
 </ul>
-<%} else {%>
-<h2>Nenhuma tarefa adicionada</h2>
-<%}%>
 
-<dialog id="modal-cria-tarefa">
+<dialog id="dialog-cria-tarefa">
   <article>
     <h3>Crair uma Nova Tarefa</h3>
     <form
       id="form-cria-tarefa"
       hx-post="/api/tarefas"
       hx-trigger="submit"
-      hx-target="#lista-tarefas"
+      hx-target="#ul-tarefas"
       hx-swap="innerHTML"
-      _="on submit call #modal-cria-tarefa.close()
+      _="on submit call #dialog-cria-tarefa.close()
          on htmx:afterRequest call #form-cria-tarefa.reset()"
     >
-      <label for="idescricao"> Descrição </label>
-      <input type="text" name="descricao" id="idescricao" required />
+    
+      <input type="text" name="id" id="input-id"/>
 
-      <label for="idata">Data Limite</label>
-      <input type="date" name="dataLimite" id="idata" />
+      <label for="input-descricao"> Descrição </label>
+      <input type="text" name="descricao" id="input-descricao" required />
+
+      <label for="input-data">Data Limite</label>
+      <input type="date" name="dataLimite" id="input-data" />
 
       <footer>
         <div class="grid">
           <button
-            _="on click call #modal-cria-tarefa.close() then call #form-cria-tarefa.reset()"
+            _="on click call #dialog-cria-tarefa.close() then call #form-cria-tarefa.reset()"
           >
             Cancelar
           </button>

@@ -6,10 +6,10 @@
     <a>
       <i
         class="fa fa-edit"
-        hx-put="<%= `/api/tarefas/${tarefa.id}` %>"
-        hx-target="#modal-container"
+        hx-target="#ul-tarefas"
         hx-swap="innerHTML"
-        hx-trigger="click"
+        _="on click call #dialog-cria-tarefa.show() then set #input-id.value to <%- tarefa.id %> then set #input-descricao.value to 
+        '<%= tarefa.descricao %>' then set #input-data.value to '<%= tarefa.dataLimite %>'"
       ></i
     ></a>
     <a>
@@ -17,7 +17,7 @@
         class="fa fa-trash"
         hx-delete="<%= `/api/tarefas/${tarefa.id}` %>"
         hx-confirm="Você está certo(a) disso?"
-        hx-target="#lista-tarefas"
+        hx-target="#ul-tarefas"
         hx-swap="innerHTML"
       ></i>
     </a>

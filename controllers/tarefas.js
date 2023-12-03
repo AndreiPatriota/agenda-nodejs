@@ -21,17 +21,34 @@ exports.buscaListadeTarefas = (req, res) => {
 };
 
 exports.criaTarefa = (req, res) => {
-  const { descricao, dataLimite } = req.body;
+  const { id, descricao, dataLimite } = req.body;
   const concluido = false;
 
-  Tarefa.create({ descricao, dataLimite, concluido })
-    .then((data) => {
-      console.log('Tarefa criada');
-      res.redirect('/api/tarefas');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  if (!id) {
+    Tarefa.create({ descricao, dataLimite, concluido })
+      .then((data) => {
+        console.log('Tarefa criada com sucesso!');
+        res.redirect('/api/tarefas');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    Tarefa.findByPk(id)
+      .then((tarefa) => {
+        tarefa.descricao = descricao;
+        tarefa.dataLimite = dataLimite;
+
+        return tarefa.save();
+      })
+      .then((data) => {
+        console.log('Tarefa atualizada com sucesso!');
+        res.redirect('/api/tarefas');
+      })
+      .catch((err) => {
+        console.log.err;
+      });
+  }
 };
 
 exports.deletaTarefa = (req, res, next) => {
