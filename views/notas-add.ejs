@@ -1,40 +1,55 @@
-<form hx-post="/api/notas" hx-trigger="submit" hx-target="main">
-  <label for="titulo">
-    Título
-    <input
-      type="text"
-      id="titulo"
-      name="titulo"
-      placeholder="Título"
-      required
-    />
-  </label>
-  <label for="descricao">
-    Descrição
-    <input
-      type="text"
-      id="descricao"
-      name="descricao"
-      placeholder="Descrição"
-      required
-    />
-  </label>
+<article>
+  <form
+    id="form-cria-notas"
+    hx-post="/api/notas"
+    hx-trigger="submit"
+    hx-target="#notas"
+    hx-swap="innerHTML"
+    _="on submit call #dialog-cria-notas.close() 
+       on htmx:afterRequest call #form-cria-notas.reset()"
+  >
+    <label for="titulo">
+      Título
+      <input
+        type="text"
+        id="titulo"
+        name="titulo"
+        placeholder="Título"
+        required
+      />
+    </label>
+    <label for="descricao">
+      Descrição
+      <input
+        type="text"
+        id="descricao"
+        name="descricao"
+        placeholder="Descrição"
+        required
+      />
+    </label>
 
-  <!-- Select -->
-  <label for="cor">Cor</label>
-  <select name="cor" required>
-    <option value="" selected>Selecione uma cor...</option>
-    <option value="red">Vermelho</option>
-    <option value="orange">Laranja</option>
-    <option value="yellow">Amarelo</option>
-    <option value="green">Verde</option>
-    <option value="cyan">Ciano</option>
-    <option value="blue">Azul</option>
-    <option value="purple">Roxo</option>
-  </select>
+    <!-- Select -->
+    <label for="cor">Cor</label>
+    <select name="cor" required>
+      <option value="" selected>Selecione uma cor...</option>
+      <option value="red">Vermelho</option>
+      <option value="orange">Laranja</option>
+      <option value="yellow">Amarelo</option>
+      <option value="green">Verde</option>
+      <option value="cyan">Ciano</option>
+      <option value="blue">Azul</option>
+      <option value="purple">Roxo</option>
+    </select>
 
-  <div class="grid">
-    <button hx-get="/notas" hx-target="main">Cancelar</button>
-    <button type="submit">Criar</button>
-  </div>
-</form>
+    <div class="grid">
+      <button
+        _="on click call #dialog-cria-notas.close()
+           then call #form-cria-notas.reset()"
+      >
+        Cancelar
+      </button>
+      <button type="submit">Criar</button>
+    </div>
+  </form>
+</article>

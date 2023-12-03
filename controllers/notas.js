@@ -38,7 +38,7 @@ exports.criaNota = (req, res) => {
 
   Nota.create({ titulo, descricao, cor })
     .then((incoming) => {
-      res.redirect('/notas');
+      res.redirect('/api/notas');
     })
     .catch((err) => {
       console.log(err);
@@ -77,10 +77,20 @@ exports.deletaNota = (req, res) => {
     })
     .then((incoming) => {
       console.log('Nota deletada com sucesso');
-      res.redirect(303, '/notas');
+      res.redirect(303, '/api/notas');
     })
     .catch((err) => {
       console.log(err);
       res.redirect(`/error/${err}`);
+    });
+};
+
+exports.buscaListadeNotas = (req, res, next) => {
+  Nota.findAll()
+    .then((listadeNotas) => {
+      res.render('notas-lista', { notas: listadeNotas });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };

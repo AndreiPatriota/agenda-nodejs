@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const rota = express.Router();
+rota.get('/notas', notaController.buscaListadeNotas);
 rota.post('/notas', notaController.criaNota);
 rota.put('/notas/:notaId', notaController.atualizaNota);
 rota.delete('/notas/:notaId', notaController.deletaNota);

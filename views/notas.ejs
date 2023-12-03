@@ -1,62 +1,10 @@
 <a>
   <i
     class="fa fa-plus-circle fa-2x"
-    hx-get="/notas-add"
-    hx-target="main"
-    hx-swap="innerHTML"
-    hx-trigger="click"
+    _="on click call #dialog-cria-notas.show()"
   ></i>
 </a>
 
-<%if (notas.length !== 0) {%> <% for (nota of notas) {%>
-<article>
-  <header>
-      <nav>
-        <ul>
-          <li>
-            <i class="fa fa-flag fa-2x" style=<%- `"color: ${nota.cor}"`%>></i>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <h3><%= nota.titulo %></h3>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <a
-              ><i
-                class="fa fa-edit"
-                hx-get="<%= `/notas-edita/${nota.id}` %>"
-                hx-target="main"
-                hx-swap="innerHTML"
-                hx-trigger="click"
-              ></i
-            ></a>
-          </li>
-          <li>
-            <a>
-                <i class="fa fa-trash"
-                hx-get="<%= `/notas-deleta/${nota.id}` %>"
-                hx-target="#modal-container"
-                hx-swap="innerHTML"
-                hx-trigger="click"></i></a>
-          </li>
-        </ul>
-      </nav>
-  </header>
-  <p><%= nota.descricao %></p>
-</article>
-<% }} else { %>
-<h2>Nenhuma nota adicionada!</h2>
-<% } %>
+<div id="notas"><%- include('notas-lista') %></div>
 
-
-<!-- Modal -->
-<div id="modal-container">
-</div>
-
-<script src="scripts/modal.js"></script>
-
-
-
+<dialog id="dialog-cria-notas"><%- include('notas-add') %></dialog>

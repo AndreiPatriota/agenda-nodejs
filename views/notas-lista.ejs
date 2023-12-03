@@ -1,0 +1,43 @@
+<%if (notas.length !== 0) {%> <% for (nota of notas) {%>
+    <article>
+      <header>
+          <nav>
+            <ul>
+              <li>
+                <i class="fa fa-flag fa-2x" style=<%- `"color: ${nota.cor}"`%>></i>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <h3><%= nota.titulo %></h3>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a
+                  ><i
+                    class="fa fa-edit"
+                    hx-get="<%= `/notas-edita/${nota.id}` %>"
+                    hx-target="main"
+                    hx-swap="innerHTML"
+                    hx-trigger="click"
+                  ></i
+                ></a>
+              </li>
+              <li>
+                <a>
+                    <i class="fa fa-trash"
+                    hx-delete="<%= `/api/notas/${nota.id}` %>"
+                    hx-confirm="Você está certo(a) disso?"
+                    hx-target="#notas"
+                    hx-swap="innerHTML"
+                    hx-trigger="click"></i></a>
+              </li>
+            </ul>
+          </nav>
+      </header>
+      <p><%= nota.descricao %></p>
+    </article>
+    <% }} else { %>
+    <h2>Nenhuma nota adicionada!</h2>
+    <% } %>
