@@ -1,4 +1,5 @@
-<%if (notas.length !== 0) {%> <% for (nota of notas) {%>
+<%if (notas.length !== 0) {%> 
+  <% for (nota of notas) {%>
     <article>
       <header>
           <nav>
@@ -17,10 +18,11 @@
                 <a
                   ><i
                     class="fa fa-edit"
-                    hx-get="<%= `/notas-edita/${nota.id}` %>"
-                    hx-target="main"
-                    hx-swap="innerHTML"
-                    hx-trigger="click"
+                    _="on click call #dialog-cria-notas.show()
+                       then set #form-notas__input-id.value to '<%= nota.id %>' 
+                       then set #form-notas__input-titulo.value to '<%= nota.titulo %>' 
+                       then set #form-notas__input-descricao.value to '<%= nota.descricao %>' 
+                       then set #form-notas__select-cor.value to '<%= nota.cor %>'"
                   ></i
                 ></a>
               </li>

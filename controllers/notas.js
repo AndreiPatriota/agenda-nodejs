@@ -34,16 +34,34 @@ exports.buscaModalDeletaNota = (req, res) => {
 };
 
 exports.criaNota = (req, res) => {
-  const { titulo, descricao, cor } = req.body;
+  const { idNota, titulo, descricao, cor } = req.body;
 
-  Nota.create({ titulo, descricao, cor })
-    .then((incoming) => {
-      res.redirect('/api/notas');
-    })
-    .catch((err) => {
-      console.log(err);
-      res.redirect(`/error/${err}`);
-    });
+  if (!idNota) {
+    Nota.create({ titulo, descricao, cor })
+      .then((data) => {
+        console.log('Nota criada com sucesso!');
+        res.redirect('/api/notas');
+      })
+      .catch((err) => {
+        console.log(err);
+        res.redirect(`/error/${err}`);
+      });
+  } else {
+    Nota.findByPk(idNota)
+      .then((nota) => {
+        nota.titulo = titulo;
+        nota.descricao = descricao;
+        nota.cor = cor;
+        return nota.save();
+      })
+      .then((data) => {
+        console.log('Nota atualizada com sucesso!');
+        res.redirect('/api/notas');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 };
 
 exports.atualizaNota = async (req, res) => {

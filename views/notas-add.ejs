@@ -8,38 +8,41 @@
     _="on submit call #dialog-cria-notas.close() 
        on htmx:afterRequest call #form-cria-notas.reset()"
   >
-    <label for="titulo">
-      Título
-      <input
-        type="text"
-        id="titulo"
-        name="titulo"
-        placeholder="Título"
-        required
-      />
-    </label>
-    <label for="descricao">
-      Descrição
-      <input
-        type="text"
-        id="descricao"
-        name="descricao"
-        placeholder="Descrição"
-        required
-      />
-    </label>
+    <input
+      type="text"
+      name="idNota"
+      id="form-notas__input-id"
+      class="esconde"
+    />
 
-    <!-- Select -->
-    <label for="cor">Cor</label>
-    <select name="cor" required>
+    <label for="form-notas__input-titulo"> Título </label>
+    <input
+      type="text"
+      id="form-notas__input-titulo"
+      name="titulo"
+      placeholder="Título"
+      required
+    />
+
+    <label for="form-notas__input-descricao"> Descrição </label>
+    <input
+      type="text"
+      id="form-notas__input-descricao"
+      name="descricao"
+      placeholder="Descrição"
+      required
+    />
+
+    <label for="form-notas__input-cor">Cor</label>
+    <select name="cor" id="form-notas__select-cor" required>
       <option value="" selected>Selecione uma cor...</option>
-      <option value="red">Vermelho</option>
-      <option value="orange">Laranja</option>
-      <option value="yellow">Amarelo</option>
-      <option value="green">Verde</option>
-      <option value="cyan">Ciano</option>
-      <option value="blue">Azul</option>
-      <option value="purple">Roxo</option>
+      <option id="form-notas__option_red" value="red">Vermelho</option>
+      <option id="form-notas__option_orange" value="orange">Laranja</option>
+      <option id="form-notas__option_yellow" value="yellow">Amarelo</option>
+      <option id="form-notas__option_green" value="green">Verde</option>
+      <option id="form-notas__option_cyan" value="cyan">Ciano</option>
+      <option id="form-notas__option_blue" value="blue">Azul</option>
+      <option id="form-notas__option_purple" value="purple">Roxo</option>
     </select>
 
     <div class="grid">
