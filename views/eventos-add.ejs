@@ -1,43 +1,69 @@
-<form hx-post="/api/eventos" hx-trigger="submit" hx-target="main">
-  <label for="titulo">
-    Título
+<article>
+  <form
+    id="form-cria-eventos"
+    hx-post="/api/eventos"
+    hx-trigger="submit"
+    hx-target="#eventos"
+    hx-swap="innerHTML"
+    _="on submit call #dialog-cria-eventos.close()
+       then on htmx:afterRequest call #form-cria-eventos.reset()"
+  >
+    <input
+      id="form-eventos__input-id"
+      name="idEvento"
+      type="text"
+      class="esconde"
+    />
+
+    <label for="form-eventos__input-titulo"> Título </label>
     <input
       type="text"
-      id="titulo"
+      id="form-eventos__input-titulo"
       name="titulo"
       placeholder="Título"
       required
     />
-  </label>
-  <label for="descricao">
-    Descrição
+
+    <label for="form-eventos__input-descricao"> Descrição </label>
     <input
       type="text"
-      id="descricao"
+      id="form-eventos__input-descricao"
       name="descricao"
       placeholder="Descrição"
       required
     />
-  </label>
-  <div class="grid">
-    <div>
-      <label for="data">
-        Data
-        <input type="date" id="data" name="data" placeholder="Data" required />
-      </label>
-    </div>
-    <div>
-      <label for="hora">
-        Data
-        <input type="time" id="hora" name="hora" placeholder="Hora" required />
-      </label>
-    </div>
-  </div>
 
-  <div class="grid">
-    <button hx-get="/eventos" hx-target="main" hx-trigger="click">
-      Cancelar
-    </button>
-    <button type="submit">Criar</button>
-  </div>
-</form>
+    <div class="grid">
+      <div>
+        <label for="form-eventos__input-data"> Data </label>
+        <input
+          type="date"
+          id="form-eventos__input-data"
+          name="data"
+          placeholder="Data"
+          required
+        />
+      </div>
+      <div>
+        <label for="form-eventos__input-hora"> Data </label>
+        <input
+          type="time"
+          id="form-eventos__input-hora"
+          name="hora"
+          placeholder="Hora"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="grid">
+      <button
+        _="on click call #dialog-cria-eventos.close()
+           then call #form-cria-eventos.reset()"
+      >
+        Cancelar
+      </button>
+      <button type="submit">Criar</button>
+    </div>
+  </form>
+</article>

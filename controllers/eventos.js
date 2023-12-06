@@ -34,16 +34,36 @@ exports.buscaModalDeletaEvento = (req, res) => {
 };
 
 exports.criaEvento = (req, res) => {
-  const { titulo, descricao, data, hora } = req.body;
+  const { idEvento, titulo, descricao, data, hora } = req.body;
 
-  Evento.create({ titulo, descricao, data, hora })
-    .then((incoming) => {
-      res.redirect('/eventos');
-    })
-    .catch((err) => {
-      console.log(err.message);
-      res.redirect(`/error/${err.message}`);
-    });
+  if (!idEvento) {
+    Evento.create({ titulo, descricao, data, hora })
+      .then((incoming) => {
+        console.log('Evento criado com sucesso!');
+        res.redirect('/api/eventos');
+      })
+      .catch((err) => {
+        console.log(err.message);
+        res.redirect(`/error/${err.message}`);
+      });
+  } else {
+    Evento.findByPk(idEvento)
+      .then((evento) => {
+        evento.titulo = titulo;
+        evento.descricao = descricao;
+        evento.data = data;
+        evento.hora = hora;
+
+        return evento.save();
+      })
+      .then((incoming) => {
+        console.log('Evento atualizado com sucesso!');
+        res.redirect('/api/eventos');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 };
 
 exports.atualizaEvento = (req, res) => {
@@ -78,10 +98,20 @@ exports.deletaEvento = (req, res) => {
     })
     .then((incoming) => {
       console.log('Evento deletado com sucesso!');
-      res.redirect(303, '/eventos');
+      res.redirect(303, '/api/eventos');
     })
     .catch((err) => {
       console.log(err.message);
       res.redirect(`/error/${err.message}`);
+    });
+};
+
+exports.buscaListadeEventos = (req, res, next) => {
+  Evento.findAll()
+    .then((listadeEventos) => {
+      res.render('eventos-lista', { eventos: listadeEventos });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };

@@ -20,9 +20,9 @@ const upload = multer({ storage: storage });
 const rota = express.Router();
 rota.get('/notas', notaController.buscaListadeNotas);
 rota.post('/notas', notaController.criaNota);
-rota.put('/notas/:notaId', notaController.atualizaNota);
 rota.delete('/notas/:notaId', notaController.deletaNota);
 
+rota.get('/eventos', eventoController.buscaListadeEventos);
 rota.post('/eventos', eventoController.criaEvento);
 rota.put('/eventos/:eventoId', eventoController.atualizaEvento);
 rota.delete('/eventos/:eventoId', eventoController.deletaEvento);
