@@ -12,10 +12,12 @@
           <a
             ><i
               class="fa fa-edit"
-              hx-get="<%= `/eventos-edita/${evento.id}` %>"
-              hx-target="main"
-              hx-swap="innerHTML"
-              hx-trigger="click"
+              _="on click call #dialog-cria-eventos.show() 
+                 then set #form-eventos__input-id.value to <%= evento.id %>
+                 then set #form-eventos__input-titulo.value to '<%= evento.titulo %>'
+                 then set #form-eventos__input-descricao.value to '<%= evento.descricao %>'
+                 then set #form-eventos__input-data.value to '<%= evento.data.getFullYear() %>-<%= evento.data.getMonth() + 1 %>-<%= evento.data.getDate() + 1%>' 
+                 then set #form-eventos__input-hora.value to '<%= evento.hora %>'"
             ></i
           ></a>
         </li>

@@ -24,7 +24,6 @@ rota.delete('/notas/:notaId', notaController.deletaNota);
 
 rota.get('/eventos', eventoController.buscaListadeEventos);
 rota.post('/eventos', eventoController.criaEvento);
-rota.put('/eventos/:eventoId', eventoController.atualizaEvento);
 rota.delete('/eventos/:eventoId', eventoController.deletaEvento);
 
 rota.post(
